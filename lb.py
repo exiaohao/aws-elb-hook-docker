@@ -25,7 +25,7 @@ def parse_targets():
                     raise ValueError('target')
                 targets.append((tmp[0].strip(), int(tmp[1].strip())))
             else:
-                targets.append(target_str.strip())
+                targets.append((target_str.strip(), None))
         if not targets:
             raise ValueError('target')
 
