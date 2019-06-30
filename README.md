@@ -26,6 +26,7 @@ spec:
         app: nginx-daemonset
         version: v1
     spec:
+      terminationGracePeriodSeconds: 60 # Change the default value 30 to 60
       containers:
       - name: nginx
         image: nginx:1.17-alpine
@@ -47,8 +48,12 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 5
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep","30"] # Wait for 30s after deregister from AWS Elastic Load Balancing
       - name: aws-elb-hook-docker # Add this after your containers
-        image: aminoapps/aws-elb-hook-docker:release-1.0.0
+        image: aminoapps/aws-elb-hook-docker
         env:
         - name: LB_TARGETS
           value: "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5|32080"
