@@ -49,11 +49,6 @@ spec:
           periodSeconds: 5
       - name: aws-elb-hook-docker # Add this after your containers
         image: aminoapps/aws-elb-hook-docker:release-1.0.0
-        lifecycle:
-          postStart:
-            exec:
-              command: ["python", "lb.py", "register", "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5,32080"] # The port should match the hostPort, you can add multi targets, the format is: arn1,port1;arn2,port2
-          preStop:
-            exec:
-              command: ["python", "lb.py", "deregister", "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5,32080"] # The port should match the hostPort, you can add multi targets, the format is: arn1,port1;arn2,port2
-```
+        env:
+        - name: LB_TARGETS
+          value: "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5"

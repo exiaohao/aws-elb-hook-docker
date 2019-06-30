@@ -32,7 +32,7 @@ def parse_targets():
         print("Targets: %s" % str(targets))
         return targets
     except:
-        print("The target format example: arn1;arn2|port2;arn3|port3")
+        print("Example: LB_TARGETS=arn1;arn2|port2;arn3|port3")
         exit(1)
 
 
