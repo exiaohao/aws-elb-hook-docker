@@ -51,4 +51,5 @@ spec:
         image: aminoapps/aws-elb-hook-docker:release-1.0.0
         env:
         - name: LB_TARGETS
-          value: "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5"
+          value: "arn:aws:elasticloadbalancing:us-west-2:799176492113:targetgroup/k8s-nodes-nginx-ingress/b4e8913e6bf8c1d5,32080"
+```

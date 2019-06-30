@@ -47,14 +47,23 @@ def fetch_instance_id():
 
 def elb_hook(action_method, targets, instance_id):
     for target in targets:
-        resp = action_method(
-            TargetGroupArn=target[0],
-            Targets=[
+        if target[1]:
+            tmp = [
                 {
                     'Id': instance_id,
                     'Port': target[1],
                 },
             ]
+        else:
+            tmp = [
+                {
+                    'Id': instance_id,
+                },
+            ]
+
+        resp = action_method(
+            TargetGroupArn=target[0],
+            Targets=tmp
         )
         print("%s %s" % (str(target), resp))
 
